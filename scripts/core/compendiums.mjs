@@ -19,7 +19,7 @@ export function registerSettings() {
     scope: "world",
     config: true,
     type: String,
-    default: `${MODULE_ID}.${BLUEPRINT_PACK}`,
+    default: `world.${BLUEPRINT_PACK}`,
     name: "ACB.settings.defaultBlueprintPack.name",
     hint: "ACB.settings.defaultBlueprintPack.hint",
   });
@@ -28,7 +28,7 @@ export function registerSettings() {
     scope: "world",
     config: true,
     type: String,
-    default: `${MODULE_ID}.${CREATURE_PACK}`,
+    default: `world.${CREATURE_PACK}`,
     name: "ACB.settings.defaultCreaturePack.name",
     hint: "ACB.settings.defaultCreaturePack.hint",
   });
