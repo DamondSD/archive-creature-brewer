@@ -1,0 +1,41 @@
+<section class="acb-section" id="section-library">
+  <h2>{{localize "ACB.sections.library"}}</h2>
+  <div class="acb-field">
+    <label>{{localize "ACB.fields.sourcePacks.label"}}</label>
+    {{#if showHelp}}<p class="acb-help">{{localize "ACB.fields.sourcePacks.help"}}</p>{{/if}}
+    <div class="acb-pack-list">
+      {{#each (lookup @root "library").packOptions as |pack|}}
+        <label class="acb-pack-option">
+          <input type="checkbox" data-source-pack value="{{pack.key}}" {{#if pack.selected}}checked{{/if}} />
+          {{pack.label}} <span class="acb-muted">({{pack.documentName}})</span>
+        </label>
+      {{/each}}
+    </div>
+  </div>
+  <div class="acb-field">
+    <label>{{localize "ACB.fields.librarySearch.label"}}</label>
+    <input type="text" data-library-search />
+    {{#if showHelp}}<p class="acb-help">{{localize "ACB.fields.librarySearch.help"}}</p>{{/if}}
+  </div>
+  <button type="button" data-action="library-search">{{localize "ACB.ui.search"}}</button>
+  <div class="acb-library-results">
+    {{#each (lookup @root "library").results as |result index|}}
+      <div class="acb-library-row">
+        <div>
+          <strong>{{result.name}}</strong>
+          <div class="acb-muted">{{result.pack}}</div>
+        </div>
+        <button type="button" data-action="add-library" data-index="{{index}}">{{localize "ACB.ui.add"}}</button>
+      </div>
+    {{/each}}
+  </div>
+  <div class="acb-field">
+    <label>{{localize "ACB.fields.attachments.label"}}</label>
+    {{#if showHelp}}<p class="acb-help">{{localize "ACB.fields.attachments.help"}}</p>{{/if}}
+    <ul class="acb-attachments">
+      {{#each attachments as |attachment|}}
+        <li>{{attachment.name}} <span class="acb-muted">({{attachment.pack}})</span></li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

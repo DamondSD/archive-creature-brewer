@@ -1,0 +1,23 @@
+<section class="acb-section" id="section-review">
+  <h2>{{localize "ACB.sections.review"}}</h2>
+  <div class="acb-validation">
+    {{#each validationMessages as |message|}}
+      <div class="acb-validation-item acb-{{message.level}}">
+        <strong>{{localize (concat "ACB.validation.levels." message.level)}}</strong>
+        <span>{{localize message.key}}</span>
+      </div>
+    {{/each}}
+    {{#unless validationMessages.length}}
+      <div class="acb-validation-item acb-info">{{localize "ACB.validation.none"}}</div>
+    {{/unless}}
+  </div>
+  <div class="acb-actions">
+    <button type="button" data-action="save-blueprint">{{localize "ACB.ui.saveBlueprint"}}</button>
+    {{#if supportsExport}}
+      <button type="button" data-action="export-actor">{{localize "ACB.ui.exportActor"}}</button>
+    {{/if}}
+    {{#if exportedActorId}}
+      <button type="button" data-action="open-export">{{localize "ACB.ui.openExport"}}</button>
+    {{/if}}
+  </div>
+</section>

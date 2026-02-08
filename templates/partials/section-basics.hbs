@@ -1,0 +1,28 @@
+<section class="acb-section" id="section-basics">
+  <h2>{{localize "ACB.sections.basics"}}</h2>
+  <div class="acb-field">
+    <label>{{localize "ACB.fields.name.label"}}</label>
+    <input type="text" data-field="identity.name" value="{{blueprint.identity.name}}" />
+    {{#if showHelp}}<p class="acb-help">{{localize "ACB.fields.name.help"}}</p>{{/if}}
+  </div>
+  <div class="acb-field">
+    <label>{{localize "ACB.fields.img.label"}}</label>
+    <input type="text" data-field="identity.img" value="{{blueprint.identity.img}}" />
+    {{#if showHelp}}<p class="acb-help">{{localize "ACB.fields.img.help"}}</p>{{/if}}
+  </div>
+  <div class="acb-field">
+    <label>{{localize "ACB.fields.size.label"}}</label>
+    <input type="text" data-field="identity.size" value="{{blueprint.identity.size}}" />
+    {{#if showHelp}}<p class="acb-help">{{localize "ACB.fields.size.help"}}</p>{{/if}}
+  </div>
+  <div class="acb-field">
+    <label>{{localize "ACB.fields.type.label"}}</label>
+    <input type="text" data-field="identity.type" value="{{blueprint.identity.type}}" />
+    {{#if showHelp}}<p class="acb-help">{{localize "ACB.fields.type.help"}}</p>{{/if}}
+  </div>
+  <div class="acb-field">
+    <label>{{localize "ACB.fields.tags.label"}}</label>
+    <input type="text" data-field="identity.tags" value="{{tagsText}}" />
+    {{#if showHelp}}<p class="acb-help">{{localize "ACB.fields.tags.help"}}</p>{{/if}}
+  </div>
+</section>
