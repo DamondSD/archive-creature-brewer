@@ -1,0 +1,40 @@
+<section class="acb-section" id="section-actions">
+  <h2>{{localize "ACB.sections.actions"}}</h2>
+  {{#if showHelp}}<p class="acb-help">{{localize "ACB.fields.actions.help"}}</p>{{/if}}
+  <div class="acb-actions">
+    {{#each actions as |action index|}}
+      <div class="acb-action-card">
+        <div class="acb-action-header">
+          <h3>{{localize "ACB.fields.actionBlock.label"}}</h3>
+          <div class="acb-action-buttons">
+            <button type="button" data-action="move-action" data-direction="up" data-index="{{index}}">{{localize "ACB.ui.moveUp"}}</button>
+            <button type="button" data-action="move-action" data-direction="down" data-index="{{index}}">{{localize "ACB.ui.moveDown"}}</button>
+            <button type="button" data-action="delete-action" data-index="{{index}}">{{localize "ACB.ui.delete"}}</button>
+          </div>
+        </div>
+        <div class="acb-field">
+          <label>{{localize "ACB.fields.actionName.label"}}</label>
+          <input type="text" data-field="actions.{{index}}.name" value="{{action.name}}" />
+          {{#if ../showHelp}}<p class="acb-help">{{localize "ACB.fields.actionName.help"}}</p>{{/if}}
+        </div>
+        <div class="acb-field">
+          <label>{{localize "ACB.fields.actionType.label"}}</label>
+          <select data-field="actions.{{index}}.type">
+            <option value="trait" {{#if (eq action.type "trait")}}selected{{/if}}>{{localize "ACB.actionTypes.trait"}}</option>
+            <option value="action" {{#if (eq action.type "action")}}selected{{/if}}>{{localize "ACB.actionTypes.action"}}</option>
+            <option value="bonus" {{#if (eq action.type "bonus")}}selected{{/if}}>{{localize "ACB.actionTypes.bonus"}}</option>
+            <option value="reaction" {{#if (eq action.type "reaction")}}selected{{/if}}>{{localize "ACB.actionTypes.reaction"}}</option>
+            <option value="legendary" {{#if (eq action.type "legendary")}}selected{{/if}}>{{localize "ACB.actionTypes.legendary"}}</option>
+          </select>
+          {{#if ../showHelp}}<p class="acb-help">{{localize "ACB.fields.actionType.help"}}</p>{{/if}}
+        </div>
+        <div class="acb-field">
+          <label>{{localize "ACB.fields.actionText.label"}}</label>
+          <textarea data-field="actions.{{index}}.text">{{action.text}}</textarea>
+          {{#if ../showHelp}}<p class="acb-help">{{localize "ACB.fields.actionText.help"}}</p>{{/if}}
+        </div>
+      </div>
+    {{/each}}
+  </div>
+  <button type="button" data-action="add-action">{{localize "ACB.ui.addAction"}}</button>
+</section>

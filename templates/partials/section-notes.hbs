@@ -1,0 +1,13 @@
+<section class="acb-section" id="section-notes">
+  <h2>{{localize "ACB.sections.notes"}}</h2>
+  <div class="acb-field">
+    <label>{{localize "ACB.fields.publicDescription.label"}}</label>
+    <textarea data-field="notes.publicDescription">{{blueprint.notes.publicDescription}}</textarea>
+    {{#if showHelp}}<p class="acb-help">{{localize "ACB.fields.publicDescription.help"}}</p>{{/if}}
+  </div>
+  <div class="acb-field">
+    <label>{{localize "ACB.fields.gmNotes.label"}}</label>
+    <textarea data-field="notes.gmNotes">{{blueprint.notes.gmNotes}}</textarea>
+    {{#if showHelp}}<p class="acb-help">{{localize "ACB.fields.gmNotes.help"}}</p>{{/if}}
+  </div>
+</section>
