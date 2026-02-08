@@ -52,21 +52,34 @@ export async function ensureRequiredCompendiums() {
     return;
   }
 
-  if (missing.includes("blueprints")) {
-    await CompendiumCollection.createCompendium({
-      label: game.i18n.localize("ACB.packs.blueprints"),
-      name: BLUEPRINT_PACK,
-      type: "JournalEntry",
-      package: MODULE_ID,
-    });
+  const CompendiumClass = foundry.documents.collections.CompendiumCollection;
+  if (missing.includes("blueprints") && !game.packs.get(`${MODULE_ID}.${BLUEPRINT_PACK}`)) {
+    try {
+      await CompendiumClass.createCompendium({
+        label: game.i18n.localize("ACB.packs.blueprints"),
+        name: BLUEPRINT_PACK,
+        type: "JournalEntry",
+        package: MODULE_ID,
+      });
+    } catch (error) {
+      if (!game.packs.get(`${MODULE_ID}.${BLUEPRINT_PACK}`)) {
+        console.warn(`${MODULE_ID} | ${error}`);
+      }
+    }
   }
-  if (missing.includes("creatures")) {
-    await CompendiumCollection.createCompendium({
-      label: game.i18n.localize("ACB.packs.creatures"),
-      name: CREATURE_PACK,
-      type: "Actor",
-      package: MODULE_ID,
-    });
+  if (missing.includes("creatures") && !game.packs.get(`${MODULE_ID}.${CREATURE_PACK}`)) {
+    try {
+      await CompendiumClass.createCompendium({
+        label: game.i18n.localize("ACB.packs.creatures"),
+        name: CREATURE_PACK,
+        type: "Actor",
+        package: MODULE_ID,
+      });
+    } catch (error) {
+      if (!game.packs.get(`${MODULE_ID}.${CREATURE_PACK}`)) {
+        console.warn(`${MODULE_ID} | ${error}`);
+      }
+    }
   }
 }
 
