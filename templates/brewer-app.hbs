@@ -1,0 +1,20 @@
+<div class="acb-layout">
+  <aside class="acb-sidebar">
+    <nav class="acb-tabs" data-group="acb">
+      <a class="item" data-tab="basics">{{localize "ACB.sections.basics"}}</a>
+      <a class="item" data-tab="notes">{{localize "ACB.sections.notes"}}</a>
+      <a class="item" data-tab="stats">{{localize "ACB.sections.stats"}}</a>
+      <a class="item" data-tab="actions">{{localize "ACB.sections.actions"}}</a>
+      <a class="item" data-tab="library">{{localize "ACB.sections.library"}}</a>
+      <a class="item" data-tab="review">{{localize "ACB.sections.review"}}</a>
+    </nav>
+  </aside>
+  <section class="acb-sections" data-group="acb">
+    <div class="tab" data-tab="basics">{{> "modules/archive-creature-brewer/templates/partials/section-basics.hbs"}}</div>
+    <div class="tab" data-tab="notes">{{> "modules/archive-creature-brewer/templates/partials/section-notes.hbs"}}</div>
+    <div class="tab" data-tab="stats">{{> "modules/archive-creature-brewer/templates/partials/section-stats.hbs"}}</div>
+    <div class="tab" data-tab="actions">{{> "modules/archive-creature-brewer/templates/partials/section-actions.hbs"}}</div>
+    <div class="tab" data-tab="library">{{> "modules/archive-creature-brewer/templates/partials/section-library.hbs"}}</div>
+    <div class="tab" data-tab="review">{{> "modules/archive-creature-brewer/templates/partials/section-review.hbs"}}</div>
+  </section>
+</div>
