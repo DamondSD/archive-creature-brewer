@@ -1,5 +1,7 @@
 import { MODULE_ID, FLAG_SCOPE, BLUEPRINT_FLAG } from "./blueprint.mjs";
 
+const CompendiumCollection = foundry.documents.collections.CompendiumCollection;
+
 export const BLUEPRINT_PACK = "acb-blueprints";
 export const CREATURE_PACK = "acb-creatures";
 
@@ -41,32 +43,52 @@ export function registerSettings() {
   });
 }
 
+function getWorldPackKey(name) {
+  return `world.${name}`;
+}
+
 export async function ensureRequiredCompendiums() {
-  const missing = [];
-  if (!game.packs.get(`${MODULE_ID}.${BLUEPRINT_PACK}`)) missing.push("blueprints");
-  if (!game.packs.get(`${MODULE_ID}.${CREATURE_PACK}`)) missing.push("creatures");
+  if (!game.user?.isGM) return;
 
-  if (!missing.length) return;
-  if (!game.user?.isGM) {
-    ui.notifications.error(game.i18n.localize("ACB.errors.missingCompendiums"));
-    return;
-  }
-
-  if (missing.includes("blueprints")) {
-    await CompendiumCollection.createCompendium({
-      label: game.i18n.localize("ACB.packs.blueprints"),
-      name: BLUEPRINT_PACK,
+  const required = [
+    {
+      name: "acb-blueprints",
+      labelKey: "ACB.packs.blueprintsLabel",
       type: "JournalEntry",
-      package: MODULE_ID,
-    });
-  }
-  if (missing.includes("creatures")) {
-    await CompendiumCollection.createCompendium({
-      label: game.i18n.localize("ACB.packs.creatures"),
-      name: CREATURE_PACK,
+    },
+    {
+      name: "acb-creatures",
+      labelKey: "ACB.packs.creaturesLabel",
       type: "Actor",
-      package: MODULE_ID,
-    });
+    },
+  ];
+
+  for (const packDef of required) {
+    const key = getWorldPackKey(packDef.name);
+
+    // ✅ Correct existence check
+    const existing = game.packs.get(key);
+    if (existing) continue;
+
+    try {
+      await CC.createCompendium({
+        name: packDef.name,
+        label: game.i18n.localize(packDef.labelKey),
+        type: packDef.type,
+        system: "world",
+        private: true,
+      });
+
+      console.log(`ACB | Created compendium: ${key}`);
+    } catch (err) {
+      // ✅ If another call already created it (race), ignore that specific error
+      const msg = String(err?.message ?? err);
+      if (msg.includes("already exists")) {
+        console.warn(`ACB | Compendium already exists: ${key}`);
+        continue;
+      }
+      throw err;
+    }
   }
 }
 
