@@ -2,7 +2,9 @@ import { BrewerApp } from "./brewer-app.mjs";
 import { MODULE_ID } from "../core/blueprint.mjs";
 import { ensureRequiredCompendiums, getBlueprintFromDocument } from "../core/compendiums.mjs";
 
-export class EntryApp extends foundry.applications.api.ApplicationV2 {
+const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
+
+export class EntryApp extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
     id: "acb-entry",
     tag: "form",

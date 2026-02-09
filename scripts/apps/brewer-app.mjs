@@ -4,7 +4,9 @@ import { saveBlueprintToPack, saveActorToPack } from "../core/compendiums.mjs";
 import { searchLibrary, getSelectedSourcePacks } from "../core/library-index.mjs";
 import { validateBlueprint } from "../core/validators.mjs";
 
-export class BrewerApp extends foundry.applications.api.ApplicationV2 {
+const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
+
+export class BrewerApp extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
     id: "acb-brewer",
     tag: "form",

@@ -5,10 +5,22 @@ import { ensureRequiredCompendiums } from "./core/compendiums.mjs";
 import { registerArchiveTabLauncher } from "./core/compendiums.mjs";
 import { MODULE_ID } from "./core/blueprint.mjs";
 
-Hooks.once("init", () => {
+Hooks.once("init", async () => {
   registerSettings();
   Handlebars.registerHelper("eq", (a, b) => a === b);
   Handlebars.registerHelper("concat", (...args) => args.slice(0, -1).join(""));
+  if (game.modules.get("archive-tab")) {
+    const { registerArchiveLauncher } = await import(
+      "/modules/archive-tab/scripts/api/register-launcher.mjs"
+    );
+
+    registerArchiveLauncher({
+      id: MODULE_ID,
+      label: game.i18n.localize("ACB.ui.launcherLabel"),
+      icon: "fa-solid fa-dragon",
+      onClick: () => game.modules.get(MODULE_ID)?.api?.open?.(),
+    });
+  }
 });
 
 Hooks.once("ready", async () => {
@@ -32,18 +44,3 @@ Hooks.once("ready", async () => {
     registerActorsSidebarButton();
   }
 });
-
-function registerActorsSidebarButton() {
-  Hooks.on("renderActorDirectory", (app, html) => {
-    if (!game.user?.isGM) return;
-    const button = document.createElement("button");
-    button.type = "button";
-    button.classList.add("acb-launcher");
-    button.innerHTML = `<i class="fas fa-dragon"></i>${game.i18n.localize("ACB.ui.launcherLabel")}`;
-    button.addEventListener("click", () =>
-      game.modules.get(MODULE_ID)?.api?.open?.()
-    );
-    const footer = html[0]?.querySelector(".directory-footer");
-    footer?.appendChild(button);
-  });
-}
